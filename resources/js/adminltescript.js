@@ -1,0 +1,11 @@
+require('./adminlte');
+require('./plugins/jquery-ui/jquery-ui');
+require('./plugins/bootstrap/js/bootstrap.bundle');
+require('./plugins/sparklines/sparkline');
+require('./plugins/jqvmap/jquery.vmap');
+require('./plugins/jqvmap/maps/jquery.vmap.usa');
+require('./plugins/jquery-knob/jquery.knob.min.js');
+require('./plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4');
+require('./plugins/summernote/summernote-bs4');
+require('./plugins/overlayScrollbars/js/jquery.overlayScrollbars');
+require('./demo')
