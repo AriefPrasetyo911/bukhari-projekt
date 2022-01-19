@@ -7,7 +7,8 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "mix --production"
+        "production": "mix --production",
+        "clear": "php artisan cache:clear && php artisan config:clear && php artisan view:clear && php artisan config:cache"
     },
     "devDependencies": {
         "axios": "^0.21",
@@ -20,5 +21,8 @@
         "resolve-url-loader": "^4.0.0",
         "sass": "^1.32.11",
         "sass-loader": "^11.0.1"
+    },
+    "dependencies": {
+        "sweetalert2": "^11.3.6"
     }
 }
