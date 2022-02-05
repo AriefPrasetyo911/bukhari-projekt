@@ -12470,6 +12470,7 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
   line-height: 1.8rem;
   margin-bottom: 0;
   padding: 0;
+  font-size: .9rem;
 }
 
 .text-sm .content-header .breadcrumb {

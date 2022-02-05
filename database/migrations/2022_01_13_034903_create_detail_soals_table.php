@@ -15,7 +15,8 @@ class CreateDetailSoalsTable extends Migration
     {
         Schema::create('detail_soals', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_soal');
+            // $table->integer('id_soal');
+            $table->integer('id_paket');
             $table->string('jenis_soal');
             $table->text('soal');
             $table->string('pilihan_a');

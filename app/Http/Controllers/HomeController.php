@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\soal;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class HomeController extends Controller
@@ -39,14 +40,15 @@ class HomeController extends Controller
         $soal = soal::get();
         return DataTables::of($soal)
         ->editColumn('waktu', function($soal){
-            return '<center>' . $soal->waktu . ' menit</center>';
-        })
-        ->editColumn('kkm', function ($soal) {
-            return "<center>" . $soal->kkm . "</center>";
-        })
-        ->addColumn('action', function ($soal) {
-            return '<div style="text-align:center"><a href="administrator/soal/ubah/' . $soal->id . '" class="btn btn-outline-success btn-sm">Ubah</a> <a href="administrator/soal/detail/' . $soal->id . '" class="btn btn-outline-primary btn-sm">Detail</a></div>';
-          })
-        ->rawColumns(['waktu', 'jenis' ,'action', 'kkm'])->make(true);
+            return  $soal->waktu . ' Menit';
+        })->rawColumns(['waktu', 'jenis' , 'kkm'])->make(true);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
     }
 }

@@ -108,9 +108,8 @@
                                     {{-- <th scope="col">#</th> --}}
                                     <th scope="col">Nama Paket</th>
                                     <th scope="col">Deskripsi</th>
-                                    <th scope="col" style="align-center">KKM</th>
-                                    <th scope="col" style="align-center">Waktu</th>
-                                    <th scope="col" style="align-center">Aksi</th>
+                                    <th scope="col">KKM</th>
+                                    <th scope="col">Waktu</th>
                                 </tr>
                             </thead>
                         </table>
@@ -137,7 +136,6 @@
                 lengthChange: true,
                 ajax: {
                     url: '{!! route('get-soal-dashboard') !!}',
-                    
                 },
                 columns: [
                     {data: 'nama_paket', name: 'nama_paket', orderable: true, searchable: true },
@@ -145,7 +143,7 @@
                     // {data: 'jenis', name: 'jenis', orderable: true, searchable: true },
                     {data: 'kkm', name: 'kkm', orderable: true, searchable: true },
                     {data: 'waktu', name: 'waktu', orderable: true, searchable: true },
-                    {data: 'action', name: 'action', orderable: false, searchable: false, },
+                    // {data: 'action', name: 'action', orderable: false, searchable: false, },
                 ],
                 "drawCallback": function (setting) {}
             });

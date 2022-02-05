@@ -15,6 +15,7 @@ class CreateSoalsTable extends Migration
     {
         Schema::create('soals', function (Blueprint $table) {
             $table->id();
+            $table->integer('id_user');
             $table->string('nama_paket');
             $table->text('deskripsi');
             $table->enum('jenis', ['twk', 'tiu', 'tkp']);

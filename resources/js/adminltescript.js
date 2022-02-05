@@ -8,4 +8,5 @@ require('./plugins/jquery-knob/jquery.knob.min.js');
 require('./plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4');
 require('./plugins/summernote/summernote-bs4');
 require('./plugins/overlayScrollbars/js/jquery.overlayScrollbars');
-require('./demo')
+require('jquery');
+require('./demo');

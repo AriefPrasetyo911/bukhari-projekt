@@ -19,9 +19,10 @@
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-    <x:notify-messages />
+    
     <!-- Main content -->
     <section class="content">
+        <x:notify-messages />
         <div class="container-fluid">
             <!-- Main row -->
             <div class="col-lg-12 col-12">
@@ -32,7 +33,7 @@
                                 Paket Soal TWK
                             </div>
                             <div class="col-6">
-                                <button class="btn btn-success btn-sm float-right" data-toggle="modal" data-target="#TambahSoalTWK">Tambah Soal TWK</button>
+                                <button class="btn btn-success btn-sm float-right" data-toggle="modal" data-target="#TambahSoalTWK">Tambah Paket TWK</button>
                             </div>
                         </div>
                     </div>
@@ -65,7 +66,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="TambahSoalTWKLabel">Tambah Soal TWK</h5>
+          <h5 class="modal-title" id="TambahSoalTWKLabel">Tambah Paket Soal TWK</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -236,13 +237,13 @@
                 // var result = confirm("Are You sure want to delete !");
                 // e.preventDefault();
                 Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
+                    title: 'Apakah Anda Yakin?',
+                    text: "Anda tidak akan dapat mengembalikan ini!",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
+                    confirmButtonText: 'Ya, hapus saja!'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajaxSetup({
@@ -262,8 +263,8 @@
                         });
 
                         Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
+                            'Dihapus!',
+                            'Soal TWK berhasil dihapus.',
                             'success'
                         );
                     }
