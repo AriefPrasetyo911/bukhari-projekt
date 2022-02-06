@@ -37,8 +37,12 @@ Route::group(['prefix' => 'administrator', 'middleware'=>'is_admin'], function (
 
         Route::get('/get/pembahasan/{id}', [\App\Http\Controllers\DetailSoalController::class, 'getPembahasan'])->name('getPembahasan');
         Route::post('/pembahasan/tambah', [\App\Http\Controllers\DetailSoalController::class, 'tambahPembahasan'])->name('tambahPembahasan');
-        
+        Route::delete('/pembahasan/hapus/detail-soal/{detail_id}', [\App\Http\Controllers\DetailSoalController::class, 'hapusPembahasan1'])->name('hapusPembahasan.detailSoal');
+        Route::delete('/pembahasan/hapus/{pembahasan_id}', [\App\Http\Controllers\DetailSoalController::class, 'hapusPembahasan'])->name('hapusPembahasan');
+        Route::get('/pembahasan/cek/detail-soal/{id_paket}', [\App\Http\Controllers\DetailSoalController::class, 'cekDetaiSoal'])->name('getPembahasan.cekDetailSoal');
+        Route::get('/pembahasan/cek/{pembahasan_id}', [\App\Http\Controllers\DetailSoalController::class, 'cekPembahasan'])->name('getPembahasan.cekPembahasan');
     });
+
     Route::group(['prefix' => 'try-out'], function(){
         //TWK
         Route::get('/twk', [App\Http\Controllers\TryOutController::class, 'TryOutTWK'])->name('try-out.twk');

@@ -138,4 +138,24 @@ class DetailSoalController extends Controller
         notify()->success('Berhasil Menambah Pembahasan ⚡️', 'Berhasil');
         return back();
     }
+
+    public function hapusPembahasan1($detail_id){
+        DetailSoal::where('id_paket', $detail_id)->delete();
+        return back()->response()->json(['success' => 'product deleted Successfully']);
+    }
+
+    public function hapusPembahasan($pembahasan_id){
+        Pembahasan::where('id_paket', $pembahasan_id)->delete();
+        return back()->response()->json(['success' => 'product deleted Successfully']);
+    }
+
+    public function cekDetaiSoal($id_paket){
+        $data = DetailSoal::where('id_paket', $id_paket)->count();
+        return response()->json($data, 200);
+    }
+
+    public function cekPembahasan($pembahasan_id){
+        $data = Pembahasan::where('id_paket', $pembahasan_id)->count();
+        return response()->json($data, 200);
+    }
 }

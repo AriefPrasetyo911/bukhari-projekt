@@ -262,6 +262,37 @@
                             }
                         });
 
+                        //check detail_soal
+                        $.get('/administrator/soal/pembahasan/cek/detail-soal/'+tiu_id, (data) => {
+                            if(data == 1){
+                                $.ajax({
+                                    type: "DELETE",
+                                    url: "/administrator/soal/pembahasan/hapus/detail-soal/"+tiu_id,
+                                    success: function (data) {
+                                        table_dashboard.draw();
+                                    },
+                                    error: function (data) {
+                                        console.log('Error:', data);
+                                    }
+                                });
+                            }
+                        })
+                        //check pembahasan
+                        $.get('/administrator/soal/pembahasan/cek/'+tiu_id, (data) => {
+                            if(data == 1){
+                                $.ajax({
+                                    type: "DELETE",
+                                    url: "/administrator/soal/pembahasan/hapus/"+tiu_id,
+                                    success: function (data) {
+                                        table_dashboard.draw();
+                                    },
+                                    error: function (data) {
+                                        console.log('Error:', data);
+                                    }
+                                });
+                            }
+                        })
+
                         Swal.fire(
                             'Dihapus!',
                             'Soal TIU berhasil dihapus.',

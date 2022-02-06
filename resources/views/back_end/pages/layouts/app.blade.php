@@ -128,8 +128,8 @@
                                 <p>Dashboard</p>
                             </a>
                         </li>
-                        <li class="nav-item {{Request::segment(2) == 'try-out' || Request::segment(3) == 'twk' || Request::segment(3) == 'tiu' || Request::segment(3) == 'tkp' ? 'menu-open':''}}">
-                            <a href="#" class="nav-link {{Request::segment(2) == 'try-out' || Request::segment(3) == 'twk' || Request::segment(3) == 'tiu' || Request::segment(3) == 'tkp'? 'active':''}}">
+                        <li class="nav-item {{Request::segment(2) == 'try-out' ||  Request::segment(3) == 'detail' ? 'menu-open':''}}">
+                            <a href="#" class="nav-link {{Request::segment(2) == 'try-out' || Request::segment(3) == 'detail' ? 'active':''}}">
                                 <i class="nav-icon fa-solid fa-gears"></i>
                                 <p>
                                     Setting Try Out
@@ -138,19 +138,19 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{route('try-out.twk')}}" class="nav-link {{Request::segment(3) == 'twk' ? 'active':''}}">
+                                    <a href="{{route('try-out.twk')}}" class="nav-link {{Request::segment(3) == 'twk' || Request::segment(4) == 'twk' ? 'active':''}}">
                                         <i class="fa-solid fa-file-lines nav-icon"></i>
                                         <p>TWK</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{route('try-out.tiu')}}" class="nav-link {{Request::segment(3) == 'tiu' ? 'active':''}}">
+                                    <a href="{{route('try-out.tiu')}}" class="nav-link {{Request::segment(3) == 'tiu' || Request::segment(4) == 'tiu' ? 'active':''}}">
                                         <i class="fa-solid fa-file-lines nav-icon"></i>
                                         <p>TIU</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{route('try-out.tkp')}}" class="nav-link {{Request::segment(3) == 'tkp' ? 'active':''}}">
+                                    <a href="{{route('try-out.tkp')}}" class="nav-link {{Request::segment(3) == 'tkp' || Request::segment(4) == 'tkp'? 'active':''}}">
                                         <i class="fa-solid fa-file-lines nav-icon"></i>
                                         <p>TKP</p>
                                     </a>

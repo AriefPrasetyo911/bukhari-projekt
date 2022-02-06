@@ -261,6 +261,37 @@
                                 console.log('Error:', data);
                             }
                         });
+                        
+                        //check detail_soal
+                        $.get('/administrator/soal/pembahasan/cek/detail-soal/'+twk_id, (data) => {
+                            if(data == 1){
+                                $.ajax({
+                                    type: "DELETE",
+                                    url: "/administrator/soal/pembahasan/hapus/detail-soal/"+twk_id,
+                                    success: function (data) {
+                                        table_dashboard.draw();
+                                    },
+                                    error: function (data) {
+                                        console.log('Error:', data);
+                                    }
+                                });
+                            }
+                        })
+                        //check pembahasan
+                        $.get('/administrator/soal/pembahasan/cek/'+twk_id, (data) => {
+                            if(data == 1){
+                                $.ajax({
+                                    type: "DELETE",
+                                    url: "/administrator/soal/pembahasan/hapus/"+twk_id,
+                                    success: function (data) {
+                                        table_dashboard.draw();
+                                    },
+                                    error: function (data) {
+                                        console.log('Error:', data);
+                                    }
+                                });
+                            }
+                        })
 
                         Swal.fire(
                             'Dihapus!',
