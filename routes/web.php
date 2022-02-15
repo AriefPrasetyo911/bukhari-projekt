@@ -25,11 +25,16 @@ Auth::routes();
 
 Route::group(['prefix' => 'administrator', 'middleware'=>'is_admin'], function () {
     Route::get('home', [App\Http\Controllers\HomeController::class, 'adminIndex'])->name('admin.home');
+    Route::post('bank/tambah', [\App\Http\Controllers\HomeController::class, 'tambahBank'])->name('tambahBank');
     Route::group(['prefix' => 'soal'], function(){
         Route::get('/get-soal-dashboard', [App\Http\Controllers\HomeController::class, 'getSoalDashboard'])->name('get-soal-dashboard');
         //DETAIL
         Route::get('/detail/{jenis_soal}/{soal_id}', [App\Http\Controllers\DetailSoalController::class, 'detail'])->name('detail-soal');
         Route::post('/tambah-soal', [\App\Http\Controllers\DetailSoalController::class, 'tambahSoal'])->name('tambahSoal');
+        Route::post('/tambah-soal/tkp', [\App\Http\Controllers\DetailSoalController::class, 'tambahSoalTKP'])->name('tambahSoalTKP');
+        Route::get('/get-data/tkp/{id_paket}', [\App\Http\Controllers\DetailSoalController::class, 'getDataTKP'])->name('getDataTKP');
+        Route::get('/get-data/tkp/skor/{id_soal}/{id_paket}', [\App\Http\Controllers\DetailSoalController::class, 'getDataSkorTKP'])->name('getDataSkorTKP');
+        Route::patch('/ubah-soal/tkp/', [\App\Http\Controllers\DetailSoalController::class, 'ubahSoalTKP'])->name('ubahSoal.TKP');
         Route::patch('/ubah-soal', [\App\Http\Controllers\DetailSoalController::class, 'ubahSoal'])->name('ubahSoal');
         Route::delete('/hapus-soal/{id}', [\App\Http\Controllers\DetailSoalController::class, 'hapusSoal'])->name('hapusSoal');
         Route::get('/twk/ambil-data/edit/{id}', [\App\Http\Controllers\TWKController::class, 'ambilData'])->name('twk.ambilData');
@@ -67,14 +72,43 @@ Route::group(['prefix' => 'administrator', 'middleware'=>'is_admin'], function (
         Route::delete('/tkp/hapus-soal/{id}', [\App\Http\Controllers\TryOutController::class, 'hapusSoalTKP'])->name('try-out.hapus-soal.tkp');
 
         Route::get('/jadwal', [App\Http\Controllers\TryOutController::class, 'TrySetJadwal'])->name('try-out.jadwal');
+        Route::get('/jadwal/get-data/{paket}', [App\Http\Controllers\TryOutController::class, 'getDataJadwal'])->name('try-out.getDataJadwal');
+        Route::get('/jadwal/detail/{id}', [App\Http\Controllers\TryOutController::class, 'detailJadwal'])->name('try-out.detailJadwal');
         Route::get('/jadwal/data', [App\Http\Controllers\TryOutController::class, 'dataJadwal'])->name('try-out.data-jadwal');
         Route::post('/jadwal/tambah', [\App\Http\Controllers\TryOutController::class, 'tambahJadwal'])->name('try-out.tambah-jadwal');
         Route::get('/jadwal/edit/{id}', [\App\Http\Controllers\TryOutController::class, 'editJadwal'])->name('try-out.edit-jadwal');
         Route::patch('/jadwal/update', [\App\Http\Controllers\TryOutController::class, 'updateJadwal'])->name('try-out.update-jadwal');
         Route::delete('/jadwal/hapus/{id}', [\App\Http\Controllers\TryOutController::class, 'hapusJadwal'])->name('try-out.hapus-jadwal');
     });
+
+    Route::group(['prefix' => 'profile'], function(){
+        Route::get('/', [\App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
+        Route::get('/edit/{id}', [\App\Http\Controllers\HomeController::class, 'profileEdit'])->name('profile.edit');
+        Route::patch('/update', [\App\Http\Controllers\HomeController::class, 'profileUpdate'])->name('profile.update');
+    });
+
+    Route::group(['prefix' => 'user'], function(){
+        Route::get('/data', [\App\Http\Controllers\UserDataController::class, 'userData'])->name('userData');
+        Route::get('/data/get', [\App\Http\Controllers\UserDataController::class, 'getuserData'])->name('userData.get');
+    });
+
+    Route::group(['prefix' => 'pembayaran'], function(){
+        Route::get('/try-out', [\App\Http\Controllers\PembayaranController::class, 'pembayaran'])->name('pembayaran.try-out');
+        Route::get('/konfirmasi', [\App\Http\Controllers\PembayaranController::class, 'konfirmasi'])->name('pembayaran.konfirmasi');
+        Route::get('/konfirmasi/{id}/{user_id}/{email}', [\App\Http\Controllers\PembayaranController::class, 'kirimKonfirmasi'])->name('konfirmasi.pembayaran');
+    });
 });
 
 Route::group(['prefix' => 'home'], function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    Route::group(['prefix' => 'jadwal-try-out'], function(){
+        Route::get('/tkp', [\App\Http\Controllers\jadwalTryOutController::class, 'jadwalTKP'])->name('jadwalTKP');
+        Route::get('/tiu', [\App\Http\Controllers\jadwalTryOutController::class, 'jadwalTIU'])->name('jadwalTIU');
+        Route::get('/twk', [\App\Http\Controllers\jadwalTryOutController::class, 'jadwalTWK'])->name('jadwalTWK');
+        //get data
+        Route::get('/twk/get-data', [\App\Http\Controllers\jadwalTryOutController::class, 'getPaketTWK'])->name('jadwalTWK.getData');
+        Route::get('/tiu/get-data', [\App\Http\Controllers\jadwalTryOutController::class, 'getPaketTIU'])->name('jadwalTIU.getData');
+        Route::get('/tkp/get-data', [\App\Http\Controllers\jadwalTryOutController::class, 'getPaketTKP'])->name('jadwalTKP.getData');
+    });
 });

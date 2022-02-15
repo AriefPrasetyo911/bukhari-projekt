@@ -33,7 +33,8 @@ class TryOutController extends Controller
     }
 
     public function TrySetJadwal(){
-        return view('back_end.pages.try-out.jadwal');
+        $paket = soal::where('jenis', 'twk')->get();
+        return view('back_end.pages.try-out.jadwal', compact('paket'));
     }
 
     public function getSoalTWK(){
@@ -285,15 +286,31 @@ class TryOutController extends Controller
     public function dataJadwal(){
         $dataJadwal = Jadwal::orderBy('created_at', 'asc')->get();
 
-        return DataTables::of($dataJadwal)->addColumn('action', function ($dataJadwal) {
+        return DataTables::of($dataJadwal)
+        ->editColumn('akses', function ($dataJadwal) {
+            // return $dataJadwal->tanggal->isoFormat('dddd,  D MMMM Y');
+            if($dataJadwal->akses == "berbayar"){
+                return ucwords($dataJadwal->akses);
+            } else {
+                return ucwords($dataJadwal->akses);
+            }
+        })
+        ->editColumn('tanggal', function ($dataJadwal) {
+            return $dataJadwal->tanggal->isoFormat('dddd,  D MMMM Y');
+        })
+        ->addColumn('action', function ($dataJadwal) {
             return 
             '<div style="text-align:center">
                 <button type="button" id="editJadwal" class="btn btn-outline-success btn-sm" data-target="modal" data-id="'.$dataJadwal->id.'">Ubah</button>
-                <a href="/administrator/soal/detail/tkp/' . $dataJadwal->id . '" class="btn btn-outline-primary btn-sm">Detail</a>
                 <a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$dataJadwal->id.'" data-original-title="Delete" class="btn btn-sm btn-outline-danger delete-jadwal-btn">Hapus</a>
             </div>';
           })
         ->rawColumns(['action'])->make(true);
+    }
+
+    public function getDataJadwal($paket){
+        $dataSoal = soal::where('jenis', $paket)->get();
+        return response()->json($dataSoal, 200);
     }
 
     public function tambahJadwal(Request $request){
@@ -303,9 +320,11 @@ class TryOutController extends Controller
         $akses_paket = $request->akses_paket;
         $tampil = $request->tampil;
         $harga_paket = $request->harga_paket;
+        $paket = $request->paket;
 
         //simpan
         $simpan = new Jadwal();
+        $simpan->id_paket = $paket;
         $simpan->tanggal =  date("Y-m-d H:i:s", strtotime($datepicker));
         $simpan->nama_jadwal = $nama_jadwal;
         $simpan->jenis = $jenis;
@@ -356,6 +375,10 @@ class TryOutController extends Controller
         }
         notify()->error('Gagal mengubah Jadwal', 'Gagal');
         return back();
+    }
+
+    public function detailJadwal($id){
+        
     }
 
     public function hapusJadwal($id){

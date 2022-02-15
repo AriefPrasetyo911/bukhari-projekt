@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bank;
+use App\Models\Profile;
 use App\Models\soal;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -26,7 +28,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('back_end.pages.user-home');
     }
 
     public function adminIndex(){
@@ -39,6 +41,9 @@ class HomeController extends Controller
     public function getSoalDashboard(){
         $soal = soal::get();
         return DataTables::of($soal)
+        ->editColumn('jenis', function($soal){
+            return strtoupper($soal->jenis);
+        })
         ->editColumn('waktu', function($soal){
             return  $soal->waktu . ' Menit';
         })->rawColumns(['waktu', 'jenis' , 'kkm'])->make(true);
@@ -50,5 +55,56 @@ class HomeController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/');
+    }
+
+    public function profile(){
+        $dataProfile = Profile::first();
+        $databank = Bank::all();
+        return view('back_end.pages.profile.profile', compact('dataProfile', 'databank'));
+    }
+
+    public function profileEdit($id){
+        $dataProfile = Profile::find($id);
+        return response()->json($dataProfile, 200);
+    }
+
+    public function profileUpdate(Request $request){
+        $id = $request->id;
+        $nama_cv = $request->nama_cv;
+        $struktur_organisasi = $request->struktur_organisasi;
+        $alamat_cv = $request->alamat_cv;
+
+        $filename  = str_replace(' ', '_', Auth::user()->name).'_'.$struktur_organisasi->getClientOriginalName();
+
+        $getOldData = Profile::where('id', $id)->first();
+        //delete previous image
+        $deleteImage = unlink(public_path('img/'.$getOldData->struktur_organisasi));
+        if($deleteImage){
+            //move file
+            $struktur_organisasi->move(public_path('img/'), $filename);
+
+            Profile::where('id', $id)->update([
+                'nama_cv' => $nama_cv,
+                'struktur_organisasi' => $filename,
+                'alamat' => $alamat_cv
+            ]);
+        }
+        notify()->success('Berhasil Mengubah Profile ⚡️', 'Berhasil');
+        return back();
+    }
+
+    public function tambahBank(Request $request){
+        $nama_bank = $request->nama_bank;
+        $rek_bank = $request->rek_bank;
+        $atas_nama = $request->atas_nama;
+
+        $simpan = new Bank();
+        $simpan->nama_bank = $nama_bank;
+        $simpan->no_rekening = $rek_bank;
+        $simpan->atas_nama = $atas_nama;
+        $simpan->save();
+
+        notify()->success('Berhasil Menambah Data Bank⚡️', 'Berhasil');
+        return back();
     }
 }

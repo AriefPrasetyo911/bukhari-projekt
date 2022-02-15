@@ -108,7 +108,14 @@
                                     Soal
                                 </div>
                                 <div class="col">
-                                    <button class="btn btn-outline-success float-right" data-toggle="modal" data-target="#tambahSoalTWK">Tulis Soal</button>
+                                    @if ($soal->jenis == 'tkp')
+                                        <button class="btn btn-outline-success float-right" id="tulisSoalTKP" data-toggle="modal" data-target="#tambahSoalTKP">Tulis Soal</button>
+                                    @elseif($soal->jenis == 'twk')
+                                        <button class="btn btn-outline-success float-right" data-toggle="modal" data-target="#tambahSoalTWK">Tulis Soal</button>
+                                    @else
+                                        {{-- tiu --}}
+                                        <button class="btn btn-outline-success float-right" data-toggle="modal" data-target="#tambahSoalTWK">Tulis Soal</button>    
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -138,7 +145,16 @@
                                         <td>{{$item->pembuat_soal_username}}</td>
                                         <td>
                                             <button class="btn btn-sm btn-warning mb-1 pembahasan-soal" data-id="{{$item->id}}" data-toggle="modal" data-target="#pembahasan-soal">Pembahasan</button>
-                                            <button class="btn btn-sm btn-primary mb-1 ubah-soal" data-id="{{$item->id}}" data-toggle="modal" data-target="#ubah-soal">Ubah</button>
+
+                                            @if ($soal->jenis == 'tkp')
+                                                <button class="btn btn-sm btn-primary mb-1 ubah-soal-tkp" data-id="{{$item->id}}" data-idpaket="{{$item->id_paket}}" data-toggle="modal" data-target="#ubah-soal-tkp">Ubah</button>
+                                            @elseif($soal->jenis == 'twk')
+                                                <button class="btn btn-sm btn-primary mb-1 ubah-soal" data-id="{{$item->id}}" data-toggle="modal" data-target="#ubah-soal">Ubah</button>
+                                            @else
+                                                {{-- tiu --}}
+                                                <button class="btn btn-sm btn-primary mb-1 ubah-soal" data-id="{{$item->id}}" data-toggle="modal" data-target="#ubah-soal">Ubah</button>    
+                                            @endif
+                                            
                                             <button class="btn btn-sm btn-success detail-soal mb-1" data-id="{{$item->id}}" data-toggle="modal" data-target="#detailPilihanGanda">Detail</button>
                                             <form method="POST" action="{{ route('hapusSoal', $item->id) }}" id="delete_form">
                                                 @csrf
@@ -244,6 +260,171 @@
     </div>
 </div>
 
+<div class="modal fade" id="tambahSoalTKP" data-backdrop="static" tabindex="-1" aria-labelledby="tambahSoalTKPLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="tambahSoalTKPLabel">Tulis Soal</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="{{route('tambahSoalTKP')}}" method="POST">
+            @csrf
+            <div class="modal-body" style="overflow-y: scroll">
+                <input type="hidden" name="id_paket" value="{{$soal->id }}">
+                <input type="hidden" name="jenis_soal" value="{{ Request::segment(4)}}">
+                <div style="
+                    font-size: 14px;
+                    line-height: 23px;
+                    margin-bottom: 0px;
+                    padding: 0px 15px 0px;
+                    height: 50em;
+                    overflow-y: scroll;
+                    text-align: justify;">
+                    <div class="form-group">
+                        <label for="soal">Soal</label>
+                        <textarea id="summernote_soal" name="soal" cols="5"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-10 col-12">
+                            <div class="form-group">
+                                <label for="soal">Pilihan A</label>
+                                <textarea id="summernote_pilihan_a" name="pilihan_a"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-12">
+                            <div class="form-group">
+                                <label for="select_1">Nilai Pilihan A</label>
+                                <select class="form-control score-select" id="skor_a" name="skor_a" required>
+                                    <option selected value="">Pilih Skor / Nilai</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-10 col-12">
+                            <div class="form-group">
+                                <label for="soal">Pilihan B</label>
+                                <textarea id="summernote_pilihan_b" name="pilihan_b"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-12">
+                            <div class="form-group">
+                                <label for="select_2">Nilai Pilihan B</label>
+                                <select class="form-control score-select" id="skor_b" name="skor_b" required>
+                                    <option selected value="">Pilih Skor / Nilai</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-10 col-12">
+                            <div class="form-group">
+                                <label for="soal">Pilihan C</label>
+                                <textarea id="summernote_pilihan_c" name="pilihan_c"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-12">
+                            <div class="form-group">
+                                <label for="select_3">Nilai Pilihan C</label>
+                                <select class="form-control score-select" id="skor_c" name="skor_c" required>
+                                    <option selected value="">Pilih Skor / Nilai</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-10 col-12">
+                            <div class="form-group">
+                                <label for="soal">Pilihan D</label>
+                                <textarea id="summernote_pilihan_d" name="pilihan_d"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-12">
+                            <div class="form-group">
+                                <label for="select_4">Nilai Pilihan D</label>
+                                <select class="form-control score-select" id="skor_d" name="skor_d" required>
+                                    <option selected value="">Pilih Skor / Nilai</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-10 col-12">
+                            <div class="form-group">
+                                <label for="soal">Pilihan E</label>
+                                <textarea id="summernote_pilihan_e" name="pilihan_e"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-12">
+                            <div class="form-group">
+                                <label for="select_5">Nilai Pilihan E</label>
+                                <select class="form-control score-select" id="skor_e" name="skor_e" required>
+                                    <option selected value="">Pilih Skor / Nilai</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="kunci">Kunci Jawaban</label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="A">
+                            <label class="form-check-label" for="inlineRadio1">Jawaban A</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="B">
+                            <label class="form-check-label" for="inlineRadio2">Jawaban B</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="C">
+                            <label class="form-check-label" for="inlineRadio3">Jawaban C</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="D">
+                            <label class="form-check-label" for="inlineRadio3">Jawaban D</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="E">
+                            <label class="form-check-label" for="inlineRadio3">Jawaban E</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
+                <button type="submit" class="btn btn-primary">Tambah</button>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
+
 {{-- Modal Ubah --}}
 <div class="modal fade" id="ubah-soal" data-backdrop="static" tabindex="-1" aria-labelledby="ubah-soalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -330,6 +511,173 @@
     </div>
 </div>
 
+<div class="modal fade" id="ubah-soal-tkp" data-backdrop="static" tabindex="-1" aria-labelledby="ubah-soal-tkpLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ubah-soal-tkpLabel">Ubah Soal</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="{{route('ubahSoal.TKP')}}" method="POST">
+            @csrf
+            {{ method_field('PATCH') }}
+            <div class="modal-body" style="overflow-y: scroll">
+                <input type="hidden" name="id_paket" id="id_paket">
+                <input type="hidden" name="id_soal" id="id_soal">
+                <input type="hidden" name="jenis_soal" value="{{ Request::segment(4)}}">
+                <div style="
+                    font-size: 14px;
+                    line-height: 23px;
+                    margin-bottom: 0px;
+                    padding: 0px 15px 0px;
+                    height: 50em;
+                    overflow-y: scroll;
+                    text-align: justify;">
+                    <div class="form-group">
+                        <label for="soal">Soal</label>
+                        <textarea id="summernote_soaltkpedit" name="soal_tkpedit" cols="5"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-10 col-12">
+                            <div class="form-group">
+                                <label for="soal">Pilihan A</label>
+                                <textarea id="summernote_pilihan_a_tkpedit" name="pilihan_a_tkpedit"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-12">
+                            <div class="form-group">
+                                <label for="select_1">Nilai Pilihan A</label>
+                                <select class="form-control score-select" id="skor_a_tkpedit" name="skor_a_tkpedit" required>
+                                    <option selected value="">Pilih Skor / Nilai</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-10 col-12">
+                            <div class="form-group">
+                                <label for="soal">Pilihan B</label>
+                                <textarea id="summernote_pilihan_b_tkpedit" name="pilihan_b_tkpedit"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-12">
+                            <div class="form-group">
+                                <label for="select_2">Nilai Pilihan B</label>
+                                <select class="form-control score-select" id="skor_b_tkpedit" name="skor_b_tkpedit" required>
+                                    <option selected value="">Pilih Skor / Nilai</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-10 col-12">
+                            <div class="form-group">
+                                <label for="soal">Pilihan C</label>
+                                <textarea id="summernote_pilihan_c_tkpedit" name="pilihan_c_tkpedit"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-12">
+                            <div class="form-group">
+                                <label for="select_3">Nilai Pilihan C</label>
+                                <select class="form-control score-select" id="skor_c_tkpedit" name="skor_c_tkpedit" required>
+                                    <option selected value="">Pilih Skor / Nilai</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-10 col-12">
+                            <div class="form-group">
+                                <label for="soal">Pilihan D</label>
+                                <textarea id="summernote_pilihan_d_tkpedit" name="pilihan_d_tkpedit"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-12">
+                            <div class="form-group">
+                                <label for="select_4">Nilai Pilihan D</label>
+                                <select class="form-control score-select" id="skor_d_tkpedit" name="skor_d_tkpedit" required>
+                                    <option selected value="">Pilih Skor / Nilai</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-10 col-12">
+                            <div class="form-group">
+                                <label for="soal">Pilihan E</label>
+                                <textarea id="summernote_pilihan_e_tkpedit" name="pilihan_e_tkpedit"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-12">
+                            <div class="form-group">
+                                <label for="select_5">Nilai Pilihan E</label>
+                                <select class="form-control score-select" id="skor_e_tkpedit" name="skor_e_tkpedit" required>
+                                    <option selected value="">Pilih Skor / Nilai</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="kunci">Kunci Jawaban</label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions_tkpedit" id="inlineRadio1_tkpedit" value="A">
+                            <label class="form-check-label" for="inlineRadio1">Jawaban A</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions_tkpedit" id="inlineRadio2_tkpedit" value="B">
+                            <label class="form-check-label" for="inlineRadio2">Jawaban B</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions_tkpedit" id="inlineRadio3_tkpedit" value="C">
+                            <label class="form-check-label" for="inlineRadio3">Jawaban C</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions_tkpedit" id="inlineRadio4_tkpedit" value="D">
+                            <label class="form-check-label" for="inlineRadio3">Jawaban D</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions_tkpedit" id="inlineRadio5_tkpedit" value="E">
+                            <label class="form-check-label" for="inlineRadio3">Jawaban E</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
+                <button type="submit" class="btn btn-primary">Ubah</button>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
+
 {{-- Modal pembahasan soal --}}
 <div class="modal fade" id="pembahasan-soal" data-backdrop="static" tabindex="-1" aria-labelledby="pembahasan-soalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -409,12 +757,16 @@
     <script>
         $('.table-detail-twk').DataTable();
         //summernote
-        $('#summernote_soal ,#summernote_soal_edit, #summernote_pembahasan_soal').summernote({
+        $('#summernote_soal ,#summernote_soal_edit, #summernote_soaltkpedit, #summernote_pembahasan_soal').summernote({
             height: ($(window).height() - 800)
         });
         $('#summernote_pilihan_a, #summernote_pilihan_a_edit, #summernote_pilihan_b, #summernote_pilihan_b_edit, #summernote_pilihan_c, #summernote_pilihan_c_edit, #summernote_pilihan_d, #summernote_pilihan_d_edit, #summernote_pilihan_e, #summernote_pilihan_e_edit').summernote({
             height: ($(window).height() - 900)
         });
+        $('#summernote_pilihan_a_tkpedit, #summernote_pilihan_b_tkpedit, #summernote_pilihan_c_tkpedit, #summernote_pilihan_d_tkpedit, #summernote_pilihan_e_tkpedit').summernote({
+            height: ($(window).height() - 900)
+        });
+
         $('.modal').css('overflow-y', 'auto')
         //detail
         $('.table-detail-twk').on("click", '.ubah-soal', function(){
@@ -536,6 +888,41 @@
                 // $("#pilihan-c").append('C. '+data[0].pilihan_c);
                 // $("#pilihan-d").append('D. '+data[0].pilihan_d);
                 // $("#pilihan-e").append('E. '+data[0].pilihan_e);
+            })
+        })
+        //tkp
+        $(".ubah-soal-tkp").on('click', function(){
+            var id = $(this).data('id');
+            var id_paket = $(this).data('idpaket');
+            $("#id_paket").val(id_paket);
+            $('#id_soal').val(id);
+            $.get('/administrator/soal/get-data/tkp/'+id_paket, (data) => {
+                console.log('data', data);
+                $("#summernote_soaltkpedit").summernote('code', data[0].soal);
+                $("#summernote_pilihan_a_tkpedit").summernote('code', data[0].pilihan_a);
+                $("#summernote_pilihan_b_tkpedit").summernote('code', data[0].pilihan_b);
+                $("#summernote_pilihan_c_tkpedit").summernote('code', data[0].pilihan_c);
+                $("#summernote_pilihan_d_tkpedit").summernote('code', data[0].pilihan_d);
+                $("#summernote_pilihan_e_tkpedit").summernote('code', data[0].pilihan_e);
+                if(data[0].kunci_jawaban == 'A'){
+                    $('#inlineRadio1_tkpedit').prop('checked', true);
+                } else if(data[0].kunci_jawaban == 'B'){
+                    $('#inlineRadio2_tkpedit').prop('checked', true);
+                } else if(data[0].kunci_jawaban == 'C'){
+                    $('#inlineRadio3_tkpedit').prop('checked', true);
+                } else if(data[0].kunci_jawaban == 'D'){
+                    $('#inlineRadio4_tkpedit').prop('checked', true);
+                } else {
+                    $('#inlineRadio5_tkpedit').prop('checked', true);
+                }
+            });
+
+            $.get('/administrator/soal/get-data/tkp/skor/'+id+'/'+id_paket, (data) => {
+                $("#skor_a_tkpedit").val(data[0].skor_pilihan_a);
+                $("#skor_b_tkpedit").val(data[0].skor_pilihan_b);
+                $("#skor_c_tkpedit").val(data[0].skor_pilihan_c);
+                $("#skor_d_tkpedit").val(data[0].skor_pilihan_d);
+                $("#skor_e_tkpedit").val(data[0].skor_pilihan_e);
             })
         })
     </script>

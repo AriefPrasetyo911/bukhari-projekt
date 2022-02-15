@@ -86,7 +86,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="jenis_paket">Jenis Paket</label>
-                            <input type="text" class="form-control" name="jenis_paket" id="jenis_paket" disabled aria-describedby="namaPaket" value="twk">
+                            <input type="text" class="form-control" name="jenis_paket" id="jenis_paket" disabled aria-describedby="namaPaket" value="TKP">
                         </div>
                     </div>
                     <div class="col-6">
@@ -151,7 +151,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="jenis_paket_edit">Jenis Paket</label>
-                            <input type="text" class="form-control" name="jenis_paket_edit" id="jenis_paket_edit" disabled aria-describedby="jenispaket" value="twk">
+                            <input type="text" class="form-control" name="jenis_paket_edit" id="jenis_paket_edit" disabled aria-describedby="jenispaket" value="TKP">
                         </div>
                     </div>
                     <div class="col-6">
@@ -225,7 +225,7 @@
                     $("#tkp_id").val(idVal);
                     $("#nama_paket_edit").val(data.nama_paket);
                     $("#deskripsiPaket_edit").val(data.deskripsi);
-                    $("#jenis_paket_edit").val(data.jenis);
+                    // $("#jenis_paket_edit").val(data.jenis);
                     $("#kkm_edit").val(data.kkm);
                     $("#waktu_edit").val(data.waktu);
                     $("#tampil_edit").val(data.tampil);

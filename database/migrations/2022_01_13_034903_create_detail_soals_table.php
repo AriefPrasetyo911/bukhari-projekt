@@ -25,7 +25,7 @@ class CreateDetailSoalsTable extends Migration
             $table->string('pilihan_d');
             $table->string('pilihan_e');
             $table->string('kunci_jawaban');
-            $table->string('score_soal');
+            $table->string('score_soal')->nullable();
             $table->string('pembuat_soal_id');
             $table->string('pembuat_soal_username');
             $table->timestamps();

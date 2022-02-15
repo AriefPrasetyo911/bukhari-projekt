@@ -24,7 +24,7 @@
     <section class="content">
         <div class="container-fluid">
             <!-- Small boxes (Stat box) -->
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
                     <div class="small-box bg-info">
@@ -93,7 +93,7 @@
                     </div>
                 </div>
                 <!-- ./col -->
-            </div>
+            </div> --}}
             <!-- /.row -->
             <!-- Main row -->
             <div class="col-lg-12 col-12">
@@ -107,7 +107,6 @@
                                 <tr>
                                     {{-- <th scope="col">#</th> --}}
                                     <th scope="col">Nama Paket</th>
-                                    <th scope="col">Jenis</th>
                                     <th scope="col">Deskripsi</th>
                                     <th scope="col">KKM</th>
                                     <th scope="col">Waktu</th>
@@ -130,24 +129,24 @@
     <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(() => {
-            let table_dashboard = $('.table-dashboard').DataTable({
-                processing: true,
-                serverSide: true,
-                responsive: true,
-                lengthChange: true,
-                ajax: {
-                    url: '{!! route('get-soal-dashboard') !!}',
-                },
-                columns: [
-                    {data: 'nama_paket', name: 'nama_paket', orderable: true, searchable: true },
-                    {data: 'jenis', name: 'jenis', orderable: true, searchable: true },
-                    {data: 'deskripsi', name: 'deskripsi', orderable: true, searchable: true },
-                    {data: 'kkm', name: 'kkm', orderable: true, searchable: true },
-                    {data: 'waktu', name: 'waktu', orderable: true, searchable: true },
-                    // {data: 'action', name: 'action', orderable: false, searchable: false, },
-                ],
-                "drawCallback": function (setting) {}
-            });
+            // let table_dashboard = $('.table-dashboard').DataTable({
+            //     processing: true,
+            //     serverSide: true,
+            //     responsive: true,
+            //     lengthChange: true,
+            //     ajax: {
+            //         url: '{!! route('get-soal-dashboard') !!}',
+            //     },
+            //     columns: [
+            //         {data: 'nama_paket', name: 'nama_paket', orderable: true, searchable: true },
+            //         {data: 'deskripsi', name: 'deskripsi', orderable: true, searchable: true },
+            //         // {data: 'jenis', name: 'jenis', orderable: true, searchable: true },
+            //         {data: 'kkm', name: 'kkm', orderable: true, searchable: true },
+            //         {data: 'waktu', name: 'waktu', orderable: true, searchable: true },
+            //         // {data: 'action', name: 'action', orderable: false, searchable: false, },
+            //     ],
+            //     "drawCallback": function (setting) {}
+            // });
         })
     </script>
 @endpush

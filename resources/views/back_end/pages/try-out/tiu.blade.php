@@ -76,7 +76,7 @@
             <div class="modal-body">
                 <div class="form-group">
                         <label for="nama_paket">Nama Paket</label>
-                        <input type="text" class="form-control" name="nama_paket" id="nama_paket" placeholder="misal: Paket TWK 1" aria-describedby="namaPaket" required>
+                        <input type="text" class="form-control" name="nama_paket" id="nama_paket" placeholder="misal: Paket TIU 1" aria-describedby="namaPaket" required>
                 </div>
                 <div class="form-group">
                     <label for="deskripsiPaket">Deskripsi Paket</label>
@@ -129,7 +129,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="EditSoalTWKLabel">Edit Soal TWK</h5>
+          <h5 class="modal-title" id="EditSoalTWKLabel">Edit Soal TIU</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -151,7 +151,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="jenis_paket_edit">Jenis Paket</label>
-                            <input type="text" class="form-control" name="jenis_paket_edit" id="jenis_paket_edit" disabled aria-describedby="jenispaket" value="twk">
+                            <input type="text" class="form-control" name="jenis_paket_edit" id="jenis_paket_edit" disabled aria-describedby="jenispaket" value="TIU">
                         </div>
                     </div>
                     <div class="col-6">
@@ -225,7 +225,7 @@
                     $("#tiu_id").val(idVal);
                     $("#nama_paket_edit").val(data.nama_paket);
                     $("#deskripsiPaket_edit").val(data.deskripsi);
-                    $("#jenis_paket_edit").val(data.jenis);
+                    // $("#jenis_paket_edit").val(strtoupper(data.jenis));
                     $("#kkm_edit").val(data.kkm);
                     $("#waktu_edit").val(data.waktu);
                     $("#tampil_edit").val(data.tampil);

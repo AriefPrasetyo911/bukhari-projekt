@@ -93,160 +93,265 @@
 
                 <!-- Sidebar -->
                 <div class="sidebar">
-                <!-- Sidebar user panel (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <i class="fa-regular fa-face-smile fa-2x text-white"></i>
+                    <!-- Sidebar user panel (optional) -->
+                    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        <div class="image">
+                            <i class="fa-regular fa-face-smile fa-2x text-white"></i>
+                        </div>
+                        <div class="info">
+                            <a href="#" class="d-block">
+                                {{Auth::user()->name}}
+                            </a>
+                        </div>
                     </div>
-                    <div class="info">
-                        <a href="#" class="d-block">
-                            {{Auth::user()->name}}
-                        </a>
-                    </div>
-                </div>
 
-                <!-- SidebarSearch Form -->
-                <div class="form-inline">
-                    <div class="input-group" data-widget="sidebar-search">
-                    <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                    <div class="input-group-append">
-                        <button class="btn btn-sidebar">
-                        <i class="fas fa-search fa-fw"></i>
-                        </button>
+                    <!-- SidebarSearch Form -->
+                    <div class="form-inline">
+                        <div class="input-group" data-widget="sidebar-search">
+                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                        <div class="input-group-append">
+                            <button class="btn btn-sidebar">
+                            <i class="fas fa-search fa-fw"></i>
+                            </button>
+                        </div>
+                        </div>
                     </div>
-                    </div>
-                </div>
-
-                <!-- Sidebar Menu -->
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-                            with font-awesome or any other icon font library -->
-                        <li class="nav-item">
-                            <a href="{{route('admin.home')}}" class="nav-link {{Request::segment(2) == 'home' ? 'active':''}}">
-                                <i class="fa-solid fa-desktop nav-icon"></i>
-                                <p>Dashboard</p>
-                            </a>
-                        </li>
-                        <li class="nav-item {{Request::segment(2) == 'try-out' ||  Request::segment(3) == 'detail' ? 'menu-open':''}}">
-                            <a href="#" class="nav-link {{Request::segment(2) == 'try-out' || Request::segment(3) == 'detail' ? 'active':''}}">
-                                <i class="nav-icon fa-solid fa-gears"></i>
-                                <p>
-                                    Setting Try Out
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
+                    @if (Auth::user()->is_admin == 1)
+                        <!-- Sidebar Menu -->
+                        <nav class="mt-2">
+                            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                                <!-- Add icons to the links using the .nav-icon class
+                                    with font-awesome or any other icon font library -->
                                 <li class="nav-item">
-                                    <a href="{{route('try-out.twk')}}" class="nav-link {{Request::segment(3) == 'twk' || Request::segment(4) == 'twk' ? 'active':''}}">
-                                        <i class="fa-solid fa-file-lines nav-icon"></i>
-                                        <p>TWK</p>
+                                    <a href="{{route('admin.home')}}" class="nav-link {{Request::segment(2) == 'home' ? 'active':''}}">
+                                        <i class="fa-solid fa-desktop nav-icon"></i>
+                                        <p>Dashboard</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{route('try-out.tiu')}}" class="nav-link {{Request::segment(3) == 'tiu' || Request::segment(4) == 'tiu' ? 'active':''}}">
-                                        <i class="fa-solid fa-file-lines nav-icon"></i>
-                                        <p>TIU</p>
+                                <li class="nav-item {{Request::segment(2) == 'try-out' ||  Request::segment(3) == 'detail' ? 'menu-open':''}}">
+                                    <a href="#" class="nav-link {{Request::segment(2) == 'try-out' || Request::segment(3) == 'detail' ? 'active':''}}">
+                                        <i class="nav-icon fa-solid fa-gears"></i>
+                                        <p>
+                                            Try Out
+                                            <i class="fas fa-angle-left right"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{route('try-out.twk')}}" class="nav-link {{Request::segment(3) == 'twk' || Request::segment(4) == 'twk' ? 'active':''}}">
+                                                <i class="fa-solid fa-file-lines nav-icon"></i>
+                                                <p>TWK</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('try-out.tiu')}}" class="nav-link {{Request::segment(3) == 'tiu' || Request::segment(4) == 'tiu' ? 'active':''}}">
+                                                <i class="fa-solid fa-file-lines nav-icon"></i>
+                                                <p>TIU</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('try-out.tkp')}}" class="nav-link {{Request::segment(3) == 'tkp' || Request::segment(4) == 'tkp'? 'active':''}}">
+                                                <i class="fa-solid fa-file-lines nav-icon"></i>
+                                                <p>TKP</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('try-out.jadwal')}}" class="nav-link {{Request::segment(3) == 'jadwal' ? 'active':''}}">
+                                                <i class="far fa-calendar-check nav-icon"></i>
+                                                <p>Set Jadwal</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item {{Request::segment(2) == 'profile' ? 'active':''}}">
+                                    <a href="{{route('profile')}}" class="nav-link {{Request::segment(2) == 'profile' ? 'active':''}}">
+                                        <i class="nav-icon fas fa-id-card-alt"></i>
+                                        <p>Profile</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{route('try-out.tkp')}}" class="nav-link {{Request::segment(3) == 'tkp' || Request::segment(4) == 'tkp'? 'active':''}}">
-                                        <i class="fa-solid fa-file-lines nav-icon"></i>
-                                        <p>TKP</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{route('try-out.jadwal')}}" class="nav-link {{Request::segment(3) == 'jadwal' ? 'active':''}}">
-                                        <i class="fa-solid fa-marker nav-icon"></i>
-                                        <p>Set Jadwal</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fa-solid fa-pen-to-square nav-icon"></i>
-                                <p>
-                                    Soal / Pembahasan
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="pages/charts/chartjs.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Materi TWK</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/charts/flot.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Materi TIU</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/charts/inline.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Materi SKP</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/calendar.html" class="nav-link">
-                                <i class="nav-icon fas fa-id-card-alt"></i>
-                                <p>Profile</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-users nav-icon"></i>
-                                <p>
-                                    Daftar User
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="pages/charts/chartjs.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                                <li class="nav-item {{Request::segment(2) == 'user' ? 'active':''}}">
+                                    <a href="{{route('userData')}}" class="nav-link {{Request::segment(2) == 'user' ? 'active':''}}">
+                                        <i class="nav-icon fas fa-users"></i>
                                         <p>Daftar User</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="pages/charts/flot.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Validasi User</p>
+                                <li class="nav-item {{Request::segment(2) == 'pembayaran' ? 'menu-open':''}}">
+                                    <a href="#" class="nav-link {{Request::segment(2) == 'pembayaran' ? 'active':''}}">
+                                        <i class="fas fa-wallet nav-icon"></i>
+                                        <p>
+                                            Pembayaran
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
                                     </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{route('pembayaran.try-out')}}" class="nav-link {{Request::segment(3) == 'try-out' ? 'active':''}}">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Pembayaran Try Out</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('pembayaran.konfirmasi')}}" class="nav-link {{Request::segment(3) == 'konfirmasi' ? 'active':''}}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Konfirmasi Pembayaran</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="nav-item {{Request::segment(2) == 'pembayaran' ? 'menu-open':''}}" style="position:fixed; bottom:0;">
+                                    <a href="#" class="nav-link {{Request::segment(2) == 'pembayaran' ? 'active':''}}">
+                                        <i class="fas fa-wallet nav-icon"></i>
+                                        <p>
+                                            Pembayaran
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{route('pembayaran.try-out')}}" class="nav-link {{Request::segment(3) == 'try-out' ? 'active':''}}">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Pembayaran Try Out</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('pembayaran.konfirmasi')}}" class="nav-link {{Request::segment(3) == 'konfirmasi' ? 'active':''}}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Konfirmasi Pembayaran</p>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-wallet nav-icon"></i>
-                                <p>
-                                    Pembayaran
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
+                        </nav>
+                        <!-- /.sidebar-menu -->
+                    @else
+                        <!-- Sidebar Menu -->
+                        <nav class="mt-2">
+                            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                                <!-- Add icons to the links using the .nav-icon class
+                                    with font-awesome or any other icon font library -->
                                 <li class="nav-item">
-                                    <a href="pages/charts/chartjs.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Pembayaran Try Out</p>
+                                    <a href="{{route('admin.home')}}" class="nav-link {{Request::segment(1) == 'home' ? 'active':''}}">
+                                        <i class="fa-solid fa-desktop nav-icon"></i>
+                                        <p>Dashboard</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="pages/charts/flot.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Konfirmasi Pembayaran Try Out</p>
+                                <li class="nav-item {{Request::segment(2) == 'jadwal-try-out' ? 'menu-open':''}}">
+                                    <a href="#" class="nav-link {{Request::segment(2) == 'try-out' ? 'active':''}}">
+                                        <i class="nav-icon fa-solid fa-gears"></i>
+                                        <p>
+                                            Jadwal Try Out
+                                            <i class="fas fa-angle-left right"></i>
+                                        </p>
                                     </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{route('jadwalTWK')}}" class="nav-link {{Request::segment(2) == 'jadwal-try-out' && Request::segment(3) == 'twk' ? 'active':''}}">
+                                                <i class="fa-solid fa-file-lines nav-icon"></i>
+                                                <p>TWK</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('jadwalTIU')}}" class="nav-link {{Request::segment(2) == 'jadwal-try-out' && Request::segment(3) == 'tiu' ? 'active':''}}">
+                                                <i class="fa-solid fa-file-lines nav-icon"></i>
+                                                <p>TIU</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('jadwalTKP')}}" class="nav-link {{Request::segment(2) == 'jadwal-try-out' && Request::segment(3) == 'tkp'? 'active':''}}">
+                                                <i class="fa-solid fa-file-lines nav-icon"></i>
+                                                <p>TKP</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="fa-solid fa-pen-to-square nav-icon"></i>
+                                        <p>
+                                            Bank Soal
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{route('pembahasan_twk')}}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Soal TWK</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="pages/charts/flot.html" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Soal TIU</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="pages/charts/inline.html" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Soal SKP</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item {{Request::segment(2) == 'profile' ? 'active':''}}">
+                                    <a href="{{route('profile')}}" class="nav-link {{Request::segment(2) == 'profile' ? 'active':''}}">
+                                        <i class="nav-icon fas fa-id-card-alt"></i>
+                                        <p>Profile</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item {{Request::segment(2) == 'user' ? 'menu-open':''}}">
+                                    <a href="#" class="nav-link {{Request::segment(2) == 'user' ? 'active':''}}">
+                                        <i class="fas fa-users nav-icon"></i>
+                                        <p>
+                                            Daftar User
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{route('userData')}}" class="nav-link {{Request::segment(2) == 'user' ? 'active':''}}">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Daftar User</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="pages/charts/flot.html" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Validasi User</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="fas fa-wallet nav-icon"></i>
+                                        <p>
+                                            Pembayaran
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="pages/charts/chartjs.html" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Pembayaran Try Out</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="pages/charts/flot.html" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Konfirmasi Pembayaran Try Out</p>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- /.sidebar-menu -->
+                        </nav>
+                        <!-- /.sidebar-menu -->
+                    @endif
+                    
                 </div>
                 <!-- /.sidebar -->
             </aside>

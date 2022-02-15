@@ -98,6 +98,16 @@
                     </div>
                     <div class="col-6">
                         <div class="form-group">
+                            <label for="paket">Pilih Paket</label>
+                            <select class="custom-select" name="paket" id="paket" required>
+                                <option selected value="">- Silakan Pilih Satu - </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>  
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
                             <label for="jenis">Tanggal</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" name="datepicker" id="datepicker" required>
@@ -107,9 +117,7 @@
                             </div>
                         </div>
                     </div>
-                </div>  
-                <div class="row">
-                    <div class="col-6">
+                    <div class="col-4">
                         <div class="form-group">
                             <label for="jenis">Akses Paket</label>
                             <select class="custom-select" name="akses_paket" id="akses_paket" required>
@@ -117,9 +125,9 @@
                                 <option value="berbayar">Berbayar</option>
                                 <option value="gratis">Gratis</option>
                             </select>
-                        </div>
+                        </div>                        
                     </div>
-                    <div class="col-6">
+                    <div class="col-4">
                         <div class="form-group">
                             <label for="jenis">Tampil?</label>
                             <select class="custom-select" name="tampil" id="tampil" required>
@@ -325,6 +333,19 @@
                 } else {
                     $('.harga').addClass('hide_element')
                 }
+            })
+
+            $("#jenis").on('change', () => {
+                var jenis = $("#jenis").val();
+                // console.log('jenis change', jenis);
+                $.get('/administrator/try-out/jadwal/get-data/'+jenis, (data) => {
+                    data.forEach(element => {
+                        $("#paket").append(`<option value="${element.id}">
+                            ${element.nama_paket}
+                        </option>`);
+                    });
+                })
+                $('#paket').empty();
             })
 
             $("#akses_paket_edit").on('change', () => {
