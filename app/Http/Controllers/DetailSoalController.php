@@ -172,7 +172,7 @@ class DetailSoalController extends Controller
 
     public function hapusSoal($id){
         DetailSoal::find($id)->delete();
-
+        Pembahasan::where('id_soal', $id)->delete();
         notify()->success('Berhasil menghapus Soal ⚡️', 'Berhasil');
         return back();
     }  
@@ -188,13 +188,23 @@ class DetailSoalController extends Controller
         $pembahasan_soal = $request->pembahasan_soal;
         $paket_id = $request->paket_id;
 
-        $simpanPembahasan = new Pembahasan();
-        $simpanPembahasan->id_soal = $soal_id;
-        $simpanPembahasan->id_paket = $paket_id;
-        $simpanPembahasan->jenis_soal = $jenis_soal;
-        $simpanPembahasan->pembahasan = $pembahasan_soal;
-        $simpanPembahasan->save();
-
+        //check
+        $checkData = Pembahasan::where('id_soal', $soal_id)->where('id_paket', $paket_id)->where('jenis_soal', $jenis_soal)->count();
+        if($checkData == 1){
+            Pembahasan::where('id_soal', $soal_id)->where('id_paket', $paket_id)->where('jenis_soal', $jenis_soal)->update([
+                'id_soal' => $soal_id,
+                'id_paket' => $paket_id,
+                'jenis_soal' => $jenis_soal,
+                'pembahasan' => $pembahasan_soal
+            ]);
+        } else {
+            $simpanPembahasan = new Pembahasan();
+            $simpanPembahasan->id_soal = $soal_id;
+            $simpanPembahasan->id_paket = $paket_id;
+            $simpanPembahasan->jenis_soal = $jenis_soal;
+            $simpanPembahasan->pembahasan = $pembahasan_soal;
+            $simpanPembahasan->save();
+        }
         notify()->success('Berhasil Menambah Pembahasan ⚡️', 'Berhasil');
         return back();
     }

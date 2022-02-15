@@ -711,7 +711,7 @@
                   </div>
                 <div class="form-group">
                     <label for="soal">Pembahasan Soal</label>
-                    <textarea id="summernote_pembahasan_soal" name="pembahasan_soal"></textarea>
+                    <textarea id="summernote_pembahasan_soal" name="pembahasan_soal" novalidate></textarea>
                 </div>
             </div>
             <div class="modal-footer">
@@ -835,8 +835,8 @@
                 if (result.isConfirmed) {
                     $("#delete_form").submit();
                     Swal.fire(
-                        'Deleted!',
-                        'Your file has been deleted.',
+                        'Dihapus!',
+                        'Data telah dihapus',
                         'success'
                     )
                 }
