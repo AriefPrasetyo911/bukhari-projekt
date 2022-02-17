@@ -1,5 +1,11 @@
 @extends('back_end.pages.layouts.app')
-
+@section('css')
+    <style>
+        .hide_element{
+            display: none;
+        }
+    </style>
+@endsection
 @section('content')
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -11,8 +17,8 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Try Out</a></li>
-                    <li class="breadcrumb-item active">TWK</li>
+                    <li class="breadcrumb-item"><a href="#">Keuangan</a></li>
+                    <li class="breadcrumb-item active">Top Up</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -25,14 +31,15 @@
         <x:notify-messages />
         <div class="container-fluid">
             <!-- Main row -->
-            <div class="col-lg-12 col-12 pr-0 pl-0">
+            <div class="col-lg-12 col-12">
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
                             <div class="col-6">
-                                Data User
+                                Jadwal Try Out
                             </div>
-                            <div class="col-6"></div>
+                            <div class="col-6">
+                            </div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -40,10 +47,10 @@
                             <thead>
                                 <tr>
                                     {{-- <th scope="col">#</th> --}}
-                                    <th scope="col">Username</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Terverifikasi</th>
-                                    <th scope="col">Dibuat</th>
+                                    <th scope="col">User ID</th>
+                                    <th scope="col">User Email</th>
+                                    <th scope="col">Saldo</th>
+                                    <th scope="col">Diupdate</th>
                                 </tr>
                             </thead>
                         </table>
@@ -55,13 +62,14 @@
     </section>
     <!-- /.content -->
 </div>
-
 @endsection
 @push('css')
     <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endpush
 @push('scripts')
     <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(document).ready(() => {
             var table_dashboard = $('.table-dashboard').DataTable({
@@ -70,17 +78,29 @@
                 responsive: true,
                 lengthChange: true,
                 ajax: {
-                    url: '{!! route('userData.get') !!}',
+                    url: '{!! route('keuangan.saldoUserData') !!}',
                     
                 },
                 columns: [
-                    {data: 'name', name: 'name', orderable: true, searchable: true },
-                    {data: 'email', name: 'email', orderable: true, searchable: true },
-                    {data: 'verified', name: 'verified', orderable: true, searchable: true },
-                    {data: 'created_at', name: 'created_at', orderable: true, searchable: true }
+                    {data: 'user_id', name: 'user_id', orderable: true, searchable: true },
+                    {data: 'user_email', name: 'user_email', orderable: true, searchable: true },
+                    {data: 'saldo', name: 'saldo', orderable: true, searchable: true },
+                    {data: 'updated_at', name: 'updated_at', orderable: true, searchable: true }
                 ],
                 "drawCallback": function (setting) {}
             });
+
+            $(".table-dashboard").on('click', '#detailTopUpBtn', function(){
+                var data_id = $(this).data('id');
+                $.get('/administrator/keuangan/top-up/data/json/'+data_id, (data) => {
+                    $("#id_tf").val(data_id);
+                    $("#userEmail").val(data.user_email);
+                    $("#transferKe").val(data.transfer_ke);
+                    $("#atasNamaTransfer").val(data.rek_atas_nama);
+                    $("#nominalTransfer").val(data.nominal);
+                    $(".card-img-top").attr("src","images/my_other_image.png");
+                })
+            })
         })
     </script>
 @endpush

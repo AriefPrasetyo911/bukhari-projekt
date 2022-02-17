@@ -97,6 +97,18 @@ Route::group(['prefix' => 'administrator', 'middleware'=>'is_admin'], function (
         Route::get('/konfirmasi', [\App\Http\Controllers\PembayaranController::class, 'konfirmasi'])->name('pembayaran.konfirmasi');
         Route::get('/konfirmasi/{id}/{user_id}/{email}', [\App\Http\Controllers\PembayaranController::class, 'kirimKonfirmasi'])->name('konfirmasi.pembayaran');
     });
+
+    Route::group(['prefix' => 'keuangan'], function(){
+        Route::get('/top-up', [\App\Http\Controllers\PembayaranController::class, 'keuanganTopUpPage'])->name('keuangan');
+        Route::get('/top-up/data', [\App\Http\Controllers\PembayaranController::class, 'keuanganTopUp'])->name('keuangan.topUp');
+        Route::get('/top-up/data/json/{id}', [\App\Http\Controllers\PembayaranController::class, 'keuanganTopUpJSON'])->name('keuangan.topUpJSON');
+        Route::post('/top-up/konfirmasi', [\App\Http\Controllers\PembayaranController::class, 'keuanganKonfirmasi'])->name('keuanganKonfirmasi');
+        Route::get('/top-up/log', [\App\Http\Controllers\PembayaranController::class, 'keuanganTopUpLog'])->name('keuangan.topUpLog');
+        Route::get('/top-up/log/data', [\App\Http\Controllers\PembayaranController::class, 'keuanganTopUpLogData'])->name('keuangan.topUpLogData');
+
+        Route::get('/saldo-user', [\App\Http\Controllers\PembayaranController::class, 'saldoUser'])->name('keuangan.saldoUser');
+        Route::get('/saldo-user/data', [\App\Http\Controllers\PembayaranController::class, 'saldoUserData'])->name('keuangan.saldoUserData');
+    });
 });
 
 Route::group(['prefix' => 'home'], function () {

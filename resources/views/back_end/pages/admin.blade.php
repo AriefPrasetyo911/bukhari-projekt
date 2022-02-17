@@ -96,7 +96,7 @@
             </div>
             <!-- /.row -->
             <!-- Main row -->
-            <div class="col-lg-12 col-12">
+            <div class="col-lg-12 col-12 pr-0 pl-0">
                 <div class="card">
                     <div class="card-header">
                         Paket Soal

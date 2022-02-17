@@ -44,7 +44,7 @@
         <x:notify-messages />
         <div class="container-fluid">
             <!-- Main row -->
-            <div class="col-lg-12 col-12">
+            <div class="col-lg-12 col-12 pr-0 pl-0">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
                         <div class="row">

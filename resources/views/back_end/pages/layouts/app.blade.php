@@ -198,7 +198,37 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li class="nav-item {{Request::segment(2) == 'keuangan' ? 'menu-open':''}}">
+                                    <a href="#" class="nav-link {{Request::segment(2) == 'keuangan' ? 'active':''}}">
+                                        <i class="fa-solid fa-money-bill-wave nav-icon"></i>                                        
+                                        <p>
+                                            Keuangan
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{route('keuangan')}}" class="nav-link {{Request::segment(3) == 'top-up' && Request::segment(4) == "" ? 'active':''}}">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Data Top Up</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('keuangan.topUpLog')}}" class="nav-link {{Request::segment(3) == 'top-up' && Request::segment(4) == "log" ? 'active':''}}">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Top Up Log</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('keuangan.saldoUser')}}" class="nav-link {{Request::segment(3) == 'saldo-user' ? 'active':''}}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Data Saldo User</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
 
+                                {{-- letak dibawah --}}
                                 <li class="nav-item {{Request::segment(2) == 'pembayaran' ? 'menu-open':''}}" style="position:fixed; bottom:0;">
                                     <a href="#" class="nav-link {{Request::segment(2) == 'pembayaran' ? 'active':''}}">
                                         <i class="fas fa-wallet nav-icon"></i>

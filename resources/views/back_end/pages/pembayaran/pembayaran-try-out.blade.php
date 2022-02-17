@@ -31,7 +31,7 @@
         <x:notify-messages />
         <div class="container-fluid">
             <!-- Main row -->
-            <div class="col-lg-12 col-12">
+            <div class="col-lg-12 col-12 pr-0 pl-0">
                 <div class="card card-primary card-tabs">
                     <div class="card-header p-0 pt-1">
                       <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
