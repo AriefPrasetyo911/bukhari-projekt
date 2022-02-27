@@ -109,6 +109,15 @@ Route::group(['prefix' => 'administrator', 'middleware'=>'is_admin'], function (
         Route::get('/saldo-user', [\App\Http\Controllers\PembayaranController::class, 'saldoUser'])->name('keuangan.saldoUser');
         Route::get('/saldo-user/data', [\App\Http\Controllers\PembayaranController::class, 'saldoUserData'])->name('keuangan.saldoUserData');
     });
+
+    Route::group(['prefix' => 'profil-administrator'], function(){
+        Route::get('/', [\App\Http\Controllers\ProfilAdministratorController::class, 'profilAdmin'])->name('profilAdmin');
+        Route::get('/edit/{id}', [\App\Http\Controllers\ProfilAdministratorController::class, 'profilAdminEdit'])->name('profilAdmin.edit');
+        Route::patch('/update', [\App\Http\Controllers\ProfilAdministratorController::class, 'profilAdminUpdate'])->name('profilAdmin.update');
+
+        Route::patch('/foto-profile/update', [\App\Http\Controllers\ProfilAdministratorController::class, 'fotoProfileUpdate'])->name('fotoProfileUpdate');
+        Route::patch('/password/update', [\App\Http\Controllers\ProfilAdministratorController::class, 'passwordUpdate'])->name('passwordUpdate');
+    });
 });
 
 Route::group(['prefix' => 'home'], function () {
@@ -119,8 +128,25 @@ Route::group(['prefix' => 'home'], function () {
         Route::get('/tiu', [\App\Http\Controllers\jadwalTryOutController::class, 'jadwalTIU'])->name('jadwalTIU');
         Route::get('/twk', [\App\Http\Controllers\jadwalTryOutController::class, 'jadwalTWK'])->name('jadwalTWK');
         //get data
-        Route::get('/twk/get-data', [\App\Http\Controllers\jadwalTryOutController::class, 'getPaketTWK'])->name('jadwalTWK.getData');
-        Route::get('/tiu/get-data', [\App\Http\Controllers\jadwalTryOutController::class, 'getPaketTIU'])->name('jadwalTIU.getData');
-        Route::get('/tkp/get-data', [\App\Http\Controllers\jadwalTryOutController::class, 'getPaketTKP'])->name('jadwalTKP.getData');
+        Route::get('/twk/get-data/{id}', [\App\Http\Controllers\jadwalTryOutController::class, 'getPaketTWK'])->name('jadwalTWK.getData');
+        Route::get('/twk/data-jadwal/{id}/{id_paket}', [\App\Http\Controllers\jadwalTryOutController::class, 'dataJadwalTWK'])->name('dataJadwalTWK');
+        Route::get('/twk/cek/{id_paket}', [\App\Http\Controllers\jadwalTryOutController::class, 'cekDataTWK'])->name('cekDataTWK');
+
+        Route::get('/tiu/get-data/{id}', [\App\Http\Controllers\jadwalTryOutController::class, 'getPaketTIU'])->name('jadwalTIU.getData');
+        Route::get('/tiu/data-jadwal/{id}/{id_paket}', [\App\Http\Controllers\jadwalTryOutController::class, 'dataJadwalTIU'])->name('dataJadwalTIU');
+        Route::get('/tiu/cek/{id_paket}', [\App\Http\Controllers\jadwalTryOutController::class, 'cekDataTIU'])->name('cekDataTIU');
+
+        Route::get('/tkp/get-data/{id}', [\App\Http\Controllers\jadwalTryOutController::class, 'getPaketTKP'])->name('jadwalTKP.getData');
+        Route::get('/tkp/data-jadwal/{id}/{id_paket}', [\App\Http\Controllers\jadwalTryOutController::class, 'dataJadwalTKP'])->name('dataJadwalTKP');
+        Route::get('/tkp/cek/{id_paket}', [\App\Http\Controllers\jadwalTryOutController::class, 'cekDataTKP'])->name('cekDataTKP');
+        //pembelian jadwal
+        Route::post('pembelian/jadwal/twk', [\App\Http\Controllers\jadwalTryOutController::class, 'beliJadwalTWK'])->name('pembelian-jadwal.twk');
+        Route::post('pembelian/jadwal/tiu', [\App\Http\Controllers\jadwalTryOutController::class, 'beliJadwalTIU'])->name('pembelian-jadwal.tiu');
+        Route::post('pembelian/jadwal/tkp', [\App\Http\Controllers\jadwalTryOutController::class, 'beliJadwalTKP'])->name('pembelian-jadwal.tkp');
+    });
+
+    Route::group(['prefix' => 'try-out'], function(){
+        Route::get('/kerjakan/{jenis}/{id_paket}', [\App\Http\Controllers\jadwalTryOutController::class, 'kerjakanTryOut'])->name('kerjakan-try-out');
+        Route::get('/get-soal/{jenis}/{id_paket}', [\App\Http\Controllers\jadwalTryOutController::class, 'getSoal'])->name('getSoal');
     });
 });

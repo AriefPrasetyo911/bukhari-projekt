@@ -15,13 +15,14 @@ class CreateJawabansTable extends Migration
     {
         Schema::create('jawabans', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_soal');
+            $table->integer('id_paket');
             $table->integer('id_user');
-            // $table->integer('id_kelas')->nullable();
-            $table->string('nama', 255)->nullable();
-            $table->string('pilihan', 1);
-            $table->decimal('score');
-            $table->string('status', 1);
+            $table->string('nama');
+            $table->string('pilihan');
+            $table->string('isi_pilihan');
+            $table->string('kunci_jawaban');
+            $table->string('isi_kunci_jawaban');
+            $table->enum('hasil', ['benar', 'salah']);
             $table->timestamps();
         });
     }

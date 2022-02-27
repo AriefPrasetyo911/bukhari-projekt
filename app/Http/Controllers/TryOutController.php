@@ -42,10 +42,10 @@ class TryOutController extends Controller
 
         return DataTables::of($soalTWK)
         ->editColumn('waktu', function($soalTWK){
-            return '<center>' . $soalTWK->waktu . ' menit</center>';
+            return $soalTWK->waktu;
         })
         ->editColumn('kkm', function ($soalTWK) {
-            return "<center>" . $soalTWK->kkm . "</center>";
+            return $soalTWK->kkm;
         })
         ->addColumn('action', function ($soalTWK) {
             return 

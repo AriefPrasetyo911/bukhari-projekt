@@ -2,5 +2,6 @@
     "/js/app.js": "/js/app.js",
     "/js/adminltescript.js": "/js/adminltescript.js",
     "/css/adminltestyles.css": "/css/adminltestyles.css",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/css/pengerjaan-soal.css": "/css/pengerjaan-soal.css"
 }

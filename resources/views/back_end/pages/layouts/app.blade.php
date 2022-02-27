@@ -229,28 +229,11 @@
                                 </li>
 
                                 {{-- letak dibawah --}}
-                                <li class="nav-item {{Request::segment(2) == 'pembayaran' ? 'menu-open':''}}" style="position:fixed; bottom:0;">
-                                    <a href="#" class="nav-link {{Request::segment(2) == 'pembayaran' ? 'active':''}}">
-                                        <i class="fas fa-wallet nav-icon"></i>
-                                        <p>
-                                            Pembayaran
-                                            <i class="right fas fa-angle-left"></i>
-                                        </p>
+                                <li class="nav-item {{Request::segment(2) == 'profil-administrator' ? 'active':''}}" style="position:fixed; bottom:0;">
+                                    <a href="{{route('profilAdmin')}}" class="nav-link {{Request::segment(2) == 'profil-administrator' ? 'active':''}}">
+                                        <i class="nav-icon fa-solid fa-address-card"></i>
+                                        <p>Profile Admin</p>
                                     </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{route('pembayaran.try-out')}}" class="nav-link {{Request::segment(3) == 'try-out' ? 'active':''}}">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Pembayaran Try Out</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{route('pembayaran.konfirmasi')}}" class="nav-link {{Request::segment(3) == 'konfirmasi' ? 'active':''}}">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Konfirmasi Pembayaran</p>
-                                            </a>
-                                        </li>
-                                    </ul>
                                 </li>
                             </ul>
                         </nav>
@@ -306,7 +289,7 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{route('pembahasan_twk')}}" class="nav-link">
+                                            <a href="" class="nav-link">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Soal TWK</p>
                                             </a>
