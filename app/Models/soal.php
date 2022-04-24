@@ -16,4 +16,8 @@ class soal extends Model
         'waktu',
         'tampil'
     ];
+
+    public function pertanyaans(){
+        return $this->hasMany(pertanyaan::class);
+    }
 }

@@ -95,6 +95,7 @@
                                     <th scope="col">Deskripsi</th>
                                     <th scope="col">Jumlah Soal</th>
                                     <th scope="col">Akan Dimulai</th>
+                                    <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -119,13 +120,26 @@
                                         </td>
                                     @elseif($pembulatan == 0)
                                         <td>
-                                            <span class="badge badge-info" style="font-size: 12px;">Try Out hari Ini</span>
+                                            <span class="badge badge-primary" style="font-size: 12px;">Try Out hari Ini</span>
                                         </td>
                                     @else
                                         <td>
                                             <span class="badge badge-danger" style="font-size: 12px;">Tanggal Try Out Sudah Lewat</span>
                                         </td>
                                     @endif
+                                    @foreach ($ambiljadwal as $item)
+                                    <td>
+                                        @if ($pembulatan == 0)
+                                            <a href="{{route('kerjakan-try-out', [$item->id, $item->jenis, $item->id_paket])}}">
+                                                <button class="btn btn-success btn-sm" id="kerjakan-try-out">Kerjakan Try Out</button>
+                                            </a>
+                                        @else
+                                            <a href="{{route('kerjakan-try-out', [$item->id, $item->jenis, $item->id_paket])}}">
+                                                <button class="btn btn-success btn-sm" id="kerjakan-try-out" disabled>Kerjakan Try Out</button>
+                                            </a>
+                                        @endif
+                                    </td>
+                                    @endforeach
                                 @endif
                                 </tr>
                             </tbody>

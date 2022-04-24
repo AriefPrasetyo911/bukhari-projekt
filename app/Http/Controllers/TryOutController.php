@@ -47,6 +47,13 @@ class TryOutController extends Controller
         ->editColumn('kkm', function ($soalTWK) {
             return $soalTWK->kkm;
         })
+        ->editColumn('tampil', function($soaltwk){
+            if($soaltwk->tampil == 'ya'){
+                return '<span class="badge badge-primary w-100">'.ucwords($soaltwk->tampil).' </span>';
+            } else {
+                return '<span class="badge badge-secondary w-100">'.ucwords($soaltwk->tampil).' </span>';
+            }
+        })
         ->addColumn('action', function ($soalTWK) {
             return 
             '<div style="text-align:center">
@@ -55,7 +62,7 @@ class TryOutController extends Controller
                 <a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$soalTWK->id.'" data-original-title="Delete" class="btn btn-sm btn-outline-danger delete-TWK-btn">Hapus</a>
             </div>';
           })
-        ->rawColumns(['waktu', 'jenis' ,'action', 'kkm'])->make(true);
+        ->rawColumns(['waktu', 'jenis' ,'action', 'kkm', 'tampil'])->make(true);
     }
 
     public function tambahSoalTWK(soal $soal, Request $request){

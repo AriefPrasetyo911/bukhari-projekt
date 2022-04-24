@@ -120,7 +120,7 @@ Route::group(['prefix' => 'administrator', 'middleware'=>'is_admin'], function (
     });
 });
 
-Route::group(['prefix' => 'home'], function () {
+Route::group(['prefix' => 'home', 'middleware' => 'auth'], function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     Route::group(['prefix' => 'jadwal-try-out'], function(){
@@ -146,7 +146,9 @@ Route::group(['prefix' => 'home'], function () {
     });
 
     Route::group(['prefix' => 'try-out'], function(){
-        Route::get('/kerjakan/{jenis}/{id_paket}', [\App\Http\Controllers\jadwalTryOutController::class, 'kerjakanTryOut'])->name('kerjakan-try-out');
+        Route::get('/kerjakan/{id}/{jenis}/{id_paket}', [\App\Http\Controllers\jadwalTryOutController::class, 'kerjakanTryOut'])->name('kerjakan-try-out');
         Route::get('/get-soal/{jenis}/{id_paket}', [\App\Http\Controllers\jadwalTryOutController::class, 'getSoal'])->name('getSoal');
+        Route::get('/kerjakan/soal/{soal_ke}', [\App\Http\Controllers\jadwalTryOutController::class, 'soalKe'])->name('soalKe');
+        Route::post('/kirim-hasil-ujian/{jenis}/{id_paket}', [\App\Http\Controllers\jadwalTryOutController::class, 'kirimHasilUjian'])->name('kirimHasilUjian');
     });
 });

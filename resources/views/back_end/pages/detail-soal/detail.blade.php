@@ -6,7 +6,6 @@
             padding-top: .5rem; 
             padding-bottom: 0;
         }
-
         .font-normal{
             font-size: initial;
             color: blue;
@@ -766,7 +765,6 @@
         $('#summernote_pilihan_a_tkpedit, #summernote_pilihan_b_tkpedit, #summernote_pilihan_c_tkpedit, #summernote_pilihan_d_tkpedit, #summernote_pilihan_e_tkpedit').summernote({
             height: ($(window).height() - 900)
         });
-
         $('.modal').css('overflow-y', 'auto')
         //detail
         $('.table-detail-twk').on("click", '.ubah-soal', function(){
@@ -916,7 +914,6 @@
                     $('#inlineRadio5_tkpedit').prop('checked', true);
                 }
             });
-
             $.get('/administrator/soal/get-data/tkp/skor/'+id+'/'+id_paket, (data) => {
                 $("#skor_a_tkpedit").val(data[0].skor_pilihan_a);
                 $("#skor_b_tkpedit").val(data[0].skor_pilihan_b);

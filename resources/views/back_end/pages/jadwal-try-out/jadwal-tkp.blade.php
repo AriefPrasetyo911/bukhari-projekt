@@ -17,7 +17,7 @@
             <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item"><a href="#">Jadwal Try Out</a></li>
-            <li class="breadcrumb-item active">TWK</li>
+            <li class="breadcrumb-item active">TKP</li>
             </ol>
         </div><!-- /.col -->
         </div><!-- /.row -->
@@ -130,11 +130,11 @@
                                     @foreach ($ambiljadwal as $item)
                                     <td>
                                         @if ($pembulatan == 0)
-                                            <a href="{{route('kerjakan-try-out', [$item->jenis, $item->id_paket])}}">
+                                            <a href="{{route('kerjakan-try-out', [$item->id, $item->jenis, $item->id_paket])}}">
                                                 <button class="btn btn-success btn-sm" id="kerjakan-try-out">Kerjakan Try Out</button>
                                             </a>
                                         @else
-                                            <a href="{{route('kerjakan-try-out', [$item->jenis, $item->id_paket])}}">
+                                            <a href="{{route('kerjakan-try-out', [$item->id, $item->jenis, $item->id_paket])}}">
                                                 <button class="btn btn-success btn-sm" id="kerjakan-try-out" disabled>Kerjakan Try Out</button>
                                             </a>
                                         @endif

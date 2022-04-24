@@ -27,32 +27,10 @@ body {
 }
 
 form {
-    background: transparent;
+    /* background: #f7f7f7; */
     padding: 20px;
 }
 
 textarea{
     max-width: 100%;
-}
-
-h4{
-    font-size: 1.25rem !important;
-}
-
-h5{
-    font-size: 1rem !important;
-}
-
-label:not(.form-check-label):not(.custom-file-label){
-    font-weight: 600;
-}
-
-.content-card{
-    position: relative;
-    top: -25px;
-}
-
-.content-card > .card{
-    box-shadow: none;
-    border: none;
 }

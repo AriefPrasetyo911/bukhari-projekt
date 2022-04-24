@@ -15,6 +15,8 @@ class CreateJawabansTable extends Migration
     {
         Schema::create('jawabans', function (Blueprint $table) {
             $table->id();
+            $table->integer('id_jawaban');
+            $table->integer('id_soal');
             $table->integer('id_paket');
             $table->integer('id_user');
             $table->string('nama');
@@ -22,7 +24,7 @@ class CreateJawabansTable extends Migration
             $table->string('isi_pilihan');
             $table->string('kunci_jawaban');
             $table->string('isi_kunci_jawaban');
-            $table->enum('hasil', ['benar', 'salah']);
+            $table->integer('benar');
             $table->timestamps();
         });
     }

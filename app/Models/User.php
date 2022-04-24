@@ -42,4 +42,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function hasils(){
+        return $this->hasMany('App\Models\Hasil', 'user_id', 'id');
+    }
+
+    public function hitungHasil(){
+        return $this->hasils()->count();
+    }
 }

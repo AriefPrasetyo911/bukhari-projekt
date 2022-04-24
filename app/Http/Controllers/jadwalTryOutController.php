@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DetailSoal;
 use App\Models\Jadwal;
+use App\Models\Jawaban;
 use App\Models\skorPilihanTKP;
 use App\Models\soal;
 use App\Models\TryOutDibeli;
@@ -219,27 +220,66 @@ class jadwalTryOutController extends Controller
     }
 
     //kerjakan try out
-    public function kerjakanTryOut($jenis, $id_paket){
+    public function kerjakanTryOut($id, $jenis, $id_paket){
         //waktu
         $data = soal::where('id', $id_paket)->where('jenis', $jenis)->first();
         $waktu = number_format($data->waktu);
         $jam =  floor($waktu / 60);
         $menit = str_pad(($waktu % 60), 2, "0", STR_PAD_LEFT);
+        //=============
+        $soals = soal::find($id_paket);
+        $today = $soals->created_at->isoFormat('dddd, D MMMM Y');
         //soal
         $jumlahSoal = DetailSoal::where("id_paket", $id_paket)->where("jenis_soal", $jenis)->count();
         $detailSoal1 = DetailSoal::where("id_paket", $id_paket)->where("jenis_soal", $jenis)->get();
         $getIDSoal = DB::table('detail_soals')
                                 ->join('skor_pilihan_tkps', 'skor_pilihan_tkps.id_paket', '=', 'detail_soals.id_paket')
                                 ->select('skor_pilihan_tkps.id_soal')->distinct()->get('id_soal');
+        $jenis = $jenis;
+        $id_paket = $id_paket;
         // $skorTKP = skorPilihanTKP
         // $detailSoalNext = DetailSoal::where("id_paket", $id_paket)->where("jenis_soal", $jenis)->skip(1)->take($jumlahSoal)->get();
         
-        return view('back_end.pages.pengerjaan-try-out.index', compact('jam', 'menit', 'detailSoal1', 'jumlahSoal', 'getIDSoal'));
+        return view('back_end.pages.pengerjaan-try-out.index', compact('jam', 'menit', 'soals', 'today', 'soals', 'today', 'jumlahSoal', 'detailSoal1', 'getIDSoal',
+        'jenis', 'id_paket'));
     }
 
     public function getSoal($jenis, $id_paket){
         $jumlahSoal = DetailSoal::where("id_paket", $id_paket)->where("jenis_soal", $jenis)->count();
         $detailSoalNext = DetailSoal::where("id_paket", $id_paket)->where("jenis_soal", $jenis)->skip(1)->take($jumlahSoal)->get();
         return response()->json($detailSoalNext, 200);
+    }
+
+    public function kirimHasilUjian(Request $request, $jenis, $id_paket){
+        $id_soal = $request->id_soal;
+        // $soal_no = $request->soal_no;
+        $jenis   = $request->jenis;
+        $idPaket = $request->idPaket;
+        $pilihanUser = $request->pilihanUser;
+        
+        foreach ($id_soal as $ids) {
+            $dataPilihan = DetailSoal::where('id', $ids)->get();
+
+            $saveData = new Jawaban();
+            $saveData->id_soal = $ids;
+            $saveData->id_paket = $idPaket;
+            $saveData->id_user = Auth::user()->id;
+            $saveData->nama    = Auth::user()->name;
+            // for($i=0; $i < count($pilihanUser); $i++){
+            //     if(isset($pilihanUser[$i])){
+            //         $saveData->pilihan = $pilihanUser[$i];
+            //     }
+            // }
+            foreach($pilihanUser as $key => $data){
+                $saveData->pilihan = $key;
+            }
+            
+            foreach($dataPilihan as $isiPilihan){
+                $saveData->kunci_jawaban = $isiPilihan->kunci_jawaban;
+            }
+            $saveData->save();
+        }
+
+        return $request->all();
     }
 }

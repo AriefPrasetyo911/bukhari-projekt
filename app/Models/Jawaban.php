@@ -12,10 +12,13 @@ class Jawaban extends Model
     protected $fillable = 
     [
         'id_soal',
+        'id_paket',
         'id_user',
         'nama',
         'pilihan',
-        'score',
-        'status'
+        'isi_pilihan',
+        'kunci_jawaban',
+        'isi_kunci_jawaban',
+        'hasil'
     ];
 }
